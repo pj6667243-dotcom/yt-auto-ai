@@ -1,0 +1,31 @@
+name: Daily AI Video Automation
+
+on:
+  schedule:
+    - cron: '30 3 * * *'   # Daily 9:00 AM India Time (UTC 3:30)
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install google-api-python-client google-auth google-auth-oauthlib moviepy gtts requests
+
+      - name: Create Client Secret File
+        run: |
+          echo "${{ secrets.YOUTUBE_CLIENT_SECRET }}" > client_secret.json
+
+      - name: Run Automation Script
+        run: |
+          python main.py
