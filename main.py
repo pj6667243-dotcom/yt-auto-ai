@@ -1,5 +1,6 @@
 import random
 from datetime import datetime
+from gtts import gTTS
 
 topics = [
     "Black Hole ke andar kya hota hai?",
@@ -52,10 +53,18 @@ long_script = generate_long_script(selected_topic)
 
 today = datetime.now().strftime("%Y-%m-%d")
 
+# Save scripts
 with open(f"short_script_{today}.txt", "w", encoding="utf-8") as f:
     f.write(short_script)
 
 with open(f"long_script_{today}.txt", "w", encoding="utf-8") as f:
     f.write(long_script)
 
-print("Scripts generated successfully 🚀")
+# Generate Voice
+short_tts = gTTS(short_script, lang='hi')
+short_tts.save(f"short_voice_{today}.mp3")
+
+long_tts = gTTS(long_script, lang='hi')
+long_tts.save(f"long_voice_{today}.mp3")
+
+print("Scripts and voice generated successfully 🚀")
