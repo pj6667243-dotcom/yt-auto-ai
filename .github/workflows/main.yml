@@ -20,8 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install google-api-python-client google-auth google-auth-oauthlib moviepy gtts requests
-
+          pip install -r requirements.txt
       - name: Create Client Secret File
         run: |
           echo "${{ secrets.YOUTUBE_CLIENT_SECRET }}" > client_secret.json
